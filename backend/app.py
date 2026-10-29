@@ -1,13 +1,15 @@
 """Servidor HTTP local: API REST + archivos estáticos del frontend."""
+import base64
+import hmac
 import json
 import os
 import traceback
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlparse
 
-from .config import ROOT, FRONTEND_DIR, DATA, HOST, PORT, VERSION, PERIOD, FIELDS
+from .config import ROOT, FRONTEND_DIR, DATA, HOST, PORT, VERSION, PERIOD, FIELDS, AUTH_USER, AUTH_PASSWORD
 from .schema import sanitize, normalize_row
-from .repository import load_data, save_data
+from .repository import load_data, save_data, ensure_dataset
 from .importers import read_multipart, parse_upload
 from .exporters.xlsx import xlsx_bytes, template_bytes
 from .exporters.docx_report import docx_bytes
@@ -21,11 +23,23 @@ class Handler(SimpleHTTPRequestHandler):
         return str(target)
     def end_headers(self):
         self.send_header('Cache-Control','no-store, max-age=0'); self.send_header('Access-Control-Allow-Origin','*'); super().end_headers()
+    def _authorized(self):
+        """HTTP Basic opcional. /api/health queda libre para los chequeos del hosting."""
+        if not (AUTH_USER and AUTH_PASSWORD) or urlparse(self.path).path=='/api/health': return True
+        header=self.headers.get('Authorization','')
+        if header.startswith('Basic '):
+            try:
+                user,_,pwd=base64.b64decode(header[6:]).decode('utf-8').partition(':')
+                if hmac.compare_digest(user,AUTH_USER) and hmac.compare_digest(pwd,AUTH_PASSWORD): return True
+            except Exception: pass
+        self.send_response(401); self.send_header('WWW-Authenticate','Basic realm="Universidad Analytics"')
+        self.send_header('Content-Length','0'); self.end_headers(); return False
     def _json(self,payload,status=200):
         raw=json.dumps(sanitize(payload),ensure_ascii=False,allow_nan=False).encode('utf-8'); self.send_response(status); self.send_header('Content-Type','application/json; charset=utf-8'); self.send_header('Content-Length',str(len(raw))); self.end_headers(); self.wfile.write(raw)
     def _download(self,raw,ctype,name):
         self.send_response(200); self.send_header('Content-Type',ctype); self.send_header('Content-Disposition',f'attachment; filename="{name}"'); self.send_header('Content-Length',str(len(raw))); self.end_headers(); self.wfile.write(raw)
     def do_GET(self):
+        if not self._authorized(): return
         parsed=urlparse(self.path)
         try:
             if parsed.path=='/api/health': return self._json({'ok':True,'service':'Universidad Analytics','version':VERSION,'port':PORT})
@@ -38,6 +52,7 @@ class Handler(SimpleHTTPRequestHandler):
         except Exception as exc:
             traceback.print_exc(); return self._json({'error':str(exc)},500)
     def do_POST(self):
+        if not self._authorized(): return
         parsed=urlparse(self.path)
         try:
             if parsed.path=='/api/import':
@@ -62,6 +77,7 @@ class Handler(SimpleHTTPRequestHandler):
         except Exception as exc:
             traceback.print_exc(); return self._json({'error':str(exc)},500)
     def do_PUT(self):
+        if not self._authorized(): return
         if urlparse(self.path).path.startswith('/api/records/'):
             try:
                 idx=int(urlparse(self.path).path.rsplit('/',1)[-1]); length=int(self.headers.get('Content-Length','0')); payload=json.loads(self.rfile.read(length).decode('utf-8')); row=normalize_row(payload.get('record',payload)); rows=load_data()
@@ -70,6 +86,7 @@ class Handler(SimpleHTTPRequestHandler):
             except Exception as exc: return self._json({'error':str(exc)},400)
         return self._json({'error':'Ruta no encontrada'},404)
     def do_DELETE(self):
+        if not self._authorized(): return
         if urlparse(self.path).path.startswith('/api/records/'):
             try:
                 idx=int(urlparse(self.path).path.rsplit('/',1)[-1]); rows=load_data()
@@ -80,7 +97,7 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 def main():
-    os.chdir(ROOT); print('='*58); print('       UNIVERSIDAD ANALYTICS - LOCAL'); print('='*58); print(f'Servidor: http://localhost:{PORT}'); print(f'Versión:  {VERSION}'); print(f'Dataset:   {DATA}')
+    os.chdir(ROOT); ensure_dataset(); print('='*58); print('       UNIVERSIDAD ANALYTICS - LOCAL'); print('='*58); print(f'Servidor: http://localhost:{PORT}'); print(f'Versión:  {VERSION}'); print(f'Dataset:   {DATA}'); print('Acceso protegido con usuario y contraseña.' if (AUTH_USER and AUTH_PASSWORD) else 'Acceso sin contraseña (modo local).')
     try: print(f'Registros disponibles: {len(load_data()):,}'.replace(',','.')); print('[OK] Dataset listo.')
     except Exception as exc: print(f'[ERROR] {exc}')
     print('Presiona Ctrl+C para detener.'); print(); ThreadingHTTPServer((HOST,PORT),Handler).serve_forever()

@@ -5,8 +5,18 @@ import json
 import os
 import shutil
 
-from .config import DATA, BACKUP_DIR, FIELDS
+from .config import DATA, DATA_DIR, SEED_DIR, BACKUP_DIR, FIELDS
 from .schema import sanitize, normalize_row
+
+def ensure_dataset():
+    """Si DATA_DIR es un disco nuevo/vacío, copia el dataset inicial incluido en el proyecto."""
+    if DATA.exists() or DATA_DIR.resolve() == SEED_DIR.resolve():
+        return
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    for name in ("matriculados_limpios.json", "matriculados_limpios.csv"):
+        src = SEED_DIR / name
+        if src.exists():
+            shutil.copy2(src, DATA_DIR / name)
 
 def load_data():
     with DATA.open("r", encoding="utf-8") as f:

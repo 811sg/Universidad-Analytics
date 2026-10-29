@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: universidad-analytics
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python run.py
+    healthCheckPath: /api/health
+    envVars:
+      # Usuario y contraseña del dashboard: los escribes en el panel de Render al crear el servicio.
+      - key: APP_USER
+        sync: false
+      - key: APP_PASSWORD
+        sync: false
+    # Para que los cambios hechos desde la app NO se pierdan al reiniciar (requiere plan de pago):
+    # 1) descomenta el bloque disk, 2) agrega la variable DATA_DIR con valor /var/data
+    # disk:
+    #   name: datos
+    #   mountPath: /var/data
+    #   sizeGB: 1

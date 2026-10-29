@@ -23,6 +23,7 @@ universidad-analytics/
 ├── run.py                     # Punto de entrada del servidor
 ├── iniciar_dashboard.bat      # Lanzador para Windows (doble clic)
 ├── requirements.txt
+├── render.yaml                # Configuración de despliegue en Render
 ├── backend/                   # API y lógica de negocio (Python)
 │   ├── config.py              # Rutas, puerto, campos y etiquetas del modelo
 │   ├── schema.py              # Normalización y validación de registros
@@ -95,3 +96,22 @@ Incluye:
 
 ## Universidad 360 V5
 La vista Universidad 360 fue rediseñada como una experiencia única de exploración espacial. La variable principal es matrícula. El usuario puede rotar la escena con el mouse, acercarse con la rueda, seleccionar una facultad y entrar a su nivel de programas. El tamaño de las esferas representa volumen de matrícula. No se usan gráficas independientes ni filtros ocultos en esta vista.
+
+## Despliegue en la nube (Render)
+
+El proyecto necesita un servidor Python continuo, por eso no es apto para Vercel (funciones serverless con límite de 4,5 MB y sin disco persistente). Render sí lo soporta.
+
+1. Sube la carpeta a un repositorio de GitHub.
+2. En Render: **New > Blueprint** (o **Web Service**) y selecciona el repositorio. Si usas Web Service: Build `pip install -r requirements.txt`, Start `python run.py`.
+3. Define las variables de entorno **`APP_USER`** y **`APP_PASSWORD`**. Con ellas el navegador pedirá usuario y contraseña antes de mostrar cualquier dato o permitir cambios. Sin ellas el sitio queda público.
+4. Abre la URL que te da Render.
+
+Variables de entorno disponibles:
+
+| Variable | Para qué sirve | Por defecto |
+|---|---|---|
+| `PORT` | Puerto (lo define el hosting) | 8000 |
+| `APP_USER` / `APP_PASSWORD` | Protección con contraseña (HTTP Basic) | sin protección |
+| `DATA_DIR` | Carpeta de datos en un disco persistente | `data/` |
+
+**Persistencia:** en un plan sin disco, los registros que agregues, edites o importes se pierden cuando el servicio se reinicia y vuelve el dataset original. Para conservarlos, monta un disco y apunta `DATA_DIR` a él (ver `render.yaml`).
