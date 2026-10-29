@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>Demografía</title>
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body data-page="demografia">
+<div class="app">
+<aside class="sidebar">
+  <a class="brand" href="/index.html"><span class="brand-mark">UA</span><span><span class="brand-title">Universidad Analytics</span><span class="brand-sub">Analítica institucional</span></span></a>
+  <div class="nav-section">Explorar</div>
+  <nav class="nav"><a href="/index.html" data-page-link="resumen"><span class="nav-icon" data-icon="grid"></span><span class="nav-label">Resumen</span></a>
+<a href="/pages/demografia.html" data-page-link="demografia"><span class="nav-icon" data-icon="users"></span><span class="nav-label">Demografía</span></a>
+<a href="/pages/academico.html" data-page-link="academico"><span class="nav-icon" data-icon="book"></span><span class="nav-label">Académico</span></a>
+<a href="/pages/geografia.html" data-page-link="geografia"><span class="nav-icon" data-icon="pin"></span><span class="nav-label">Geografía</span></a>
+<a href="/pages/colegios.html" data-page-link="colegios"><span class="nav-icon" data-icon="school"></span><span class="nav-label">Colegios</span></a>
+<a href="/pages/explorador.html" data-page-link="explorador"><span class="nav-icon" data-icon="table"></span><span class="nav-label">Explorador</span></a>
+<a href="/pages/universidad360.html" data-page-link="universidad360"><span class="nav-icon" data-icon="trend"></span><span class="nav-label">Universidad 360</span></a>
+<a href="/pages/gestion.html" data-page-link="gestion"><span class="nav-icon" data-icon="database"></span><span class="nav-label">Gestión de datos</span></a>
+<a href="/pages/reportes.html" data-page-link="reportes"><span class="nav-icon" data-icon="report"></span><span class="nav-label">Reportes</span></a></nav>
+  <div class="sidebar-bottom"><div class="status"><span class="status-dot"></span><span>Dataset local conectado</span></div></div>
+</aside>
+<div class="content">
+<header class="topbar">
+  <div class="top-left"><span class="breadcrumb">Analítica institucional / <strong id="pageName">Demografía</strong></span></div>
+  <div class="top-right">
+    <span id="filterCount" class="breadcrumb">0 registros</span>
+    <button class="icon-button" id="refreshBtn" title="Actualizar datos" aria-label="Actualizar datos" data-icon="refresh"></button>
+  </div>
+</header>
+<main class="main">
+
+<div class="page-head"><div><h1>Demografía</h1><p>Perfil de los estudiantes y composición social del periodo.</p></div></div>
+<div class="filterbar" id="filters"></div><div class="active-filters" id="activeFilters"></div><div class="kpis" id="kpis"></div>
+<div class="grid-2">
+<section class="card"><div class="card-head"><div><h2 class="card-title">Distribución por sexo</h2><p class="card-desc">Composición de la población matriculada.</p></div></div><div class="chart" id="sexoChart"></div></section>
+<section class="card"><div class="card-head"><div><h2 class="card-title">Distribución por estrato</h2><p class="card-desc">Útil para caracterización y análisis de cobertura.</p></div></div><div class="chart" id="estratoChart"></div></section>
+</div>
+<div class="grid-2" style="margin-top:10px">
+<section class="card"><div class="card-head"><div><h2 class="card-title">Sexo por facultad</h2><p class="card-desc">Compara composición interna sin perder el contexto del volumen.</p></div></div><div class="chart small" id="sexoFacChart"></div></section>
+<section class="card"><div class="card-head"><div><h2 class="card-title">Ciudades de nacimiento</h2><p class="card-desc">Concentración geográfica de origen.</p></div></div><div class="chart small" id="ciudadesChart"></div></section>
+</div>
+
+</main>
+</div>
+</div>
+
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="filterDrawer">
+  <div class="drawer-head"><h2>Filtros avanzados</h2><button class="icon-button" id="drawerClose" title="Cerrar" data-icon="close"></button></div>
+  <div class="filter-grid" id="drawerFilters"></div>
+  <div style="display:flex;gap:7px;margin-top:15px"><button class="button ghost" id="drawerClear">Limpiar avanzados</button><button class="button primary" id="drawerApply">Aplicar filtros</button></div>
+</aside>
+
+<input id="importFile" type="file" accept=".csv,.json,.xlsx" hidden>
+<div class="loading" id="loading"><div class="loader">
+  <div class="loader-title" id="loadingTitle">Conectando con el dataset</div>
+  <div class="loader-sub" id="loadingSub">Consultando el servidor local y preparando los indicadores.</div>
+  <div class="loader-line" id="loadingLine"><span></span></div>
+  <div id="loadingActions" style="display:none;gap:7px;margin-top:12px"><a class="button primary" href="http://localhost:8000">Reintentar</a><button class="button" onclick="location.reload()">Recargar</button></div>
+</div></div>
+<div id="toast" class="toast"></div>
+<script src="/assets/js/core.js"></script>
+<script src="/assets/js/pages/demografia.js"></script>
+</body>
+</html>

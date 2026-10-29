@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071426">
+<title>Universidad 360 · Universidad Analytics</title>
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body data-page="universidad360">
+<div class="app">
+<aside class="sidebar">
+  <a class="brand" href="/index.html"><span class="brand-mark">UA</span><span><span class="brand-title">Universidad Analytics</span><span class="brand-sub">Analítica institucional</span></span></a>
+  <div class="nav-section">Explorar</div>
+  <nav class="nav">
+    <a href="/index.html" data-page-link="resumen"><span class="nav-icon" data-icon="grid"></span><span class="nav-label">Resumen</span></a>
+    <a href="/pages/demografia.html" data-page-link="demografia"><span class="nav-icon" data-icon="users"></span><span class="nav-label">Demografía</span></a>
+    <a href="/pages/academico.html" data-page-link="academico"><span class="nav-icon" data-icon="book"></span><span class="nav-label">Académico</span></a>
+    <a href="/pages/geografia.html" data-page-link="geografia"><span class="nav-icon" data-icon="pin"></span><span class="nav-label">Geografía</span></a>
+    <a href="/pages/colegios.html" data-page-link="colegios"><span class="nav-icon" data-icon="school"></span><span class="nav-label">Colegios</span></a>
+    <a href="/pages/explorador.html" data-page-link="explorador"><span class="nav-icon" data-icon="table"></span><span class="nav-label">Explorador</span></a>
+    <a href="/pages/universidad360.html" data-page-link="universidad360"><span class="nav-icon" data-icon="trend"></span><span class="nav-label">Universidad 360</span></a>
+    <a href="/pages/gestion.html" data-page-link="gestion"><span class="nav-icon" data-icon="database"></span><span class="nav-label">Gestión de datos</span></a>
+    <a href="/pages/reportes.html" data-page-link="reportes"><span class="nav-icon" data-icon="report"></span><span class="nav-label">Reportes</span></a>
+  </nav>
+  <div class="sidebar-bottom"><div class="status"><span class="status-dot"></span><span>Dataset local conectado</span></div></div>
+</aside>
+<div class="content">
+<header class="topbar">
+  <div class="top-left"><span class="breadcrumb">Analítica institucional / <strong>Universidad 360</strong></span></div>
+  <div class="top-right"><span class="top-live"><i></i> Datos en vivo</span><span id="filterCount" class="breadcrumb">0 registros</span><button class="icon-button" id="refreshBtn" title="Actualizar datos" aria-label="Actualizar datos" data-icon="refresh"></button></div>
+</header>
+
+<main class="main ua360-v7">
+  <section class="v7-header">
+    <div>
+      <div class="eyebrow dark">OBSERVATORIO · MODELO INTERACTIVO</div>
+      <h1>Explora la universidad por capas.</h1>
+      <p>No dibujamos cada registro. Convertimos el dataset en una estructura navegable donde <strong>tamaño, profundidad y conexión representan matrícula</strong>.</p>
+    </div>
+    <div class="v7-total"><span>2026-1</span><strong id="v7Total">0</strong><small>registros analizados</small></div>
+  </section>
+
+  <section class="v7-command v7-command-simple">
+    <div class="v7-simple-status"><span class="v7-simple-dot"></span><span id="v7StatusText">Panorama institucional</span></div>
+    <div class="v7-simple-actions"><button type="button" class="v7-action" id="v7Back" disabled>← Retroceder</button><button type="button" class="v7-action" id="v7Reset">Inicio</button></div>
+  </section>
+
+  <section class="v7-stage">
+    <div class="v7-canvas-wrap" id="v7Wrap">
+      <canvas id="v7Canvas" aria-label="Modelo interactivo de matrícula"></canvas>
+      <div class="v7-canvas-top"><span class="v7-mode-dot"></span><span id="v7ModeText">Panorama institucional</span><span class="v7-sep">·</span><span>Arrastra</span><span>·</span><span>Rueda</span><span>·</span><span>Haz clic para explorar</span></div>
+      <div class="v7-focus" id="v7Focus"><span>VISTA ACTUAL</span><strong id="v7FocusName">Panorama institucional</strong><small id="v7FocusValue">0 registros de matrícula</small></div>
+      <div class="v7-stage-controls"><button type="button" id="v7Auto" class="on">Auto</button><button type="button" id="v7Minus">−</button><span id="v7Zoom">100%</span><button type="button" id="v7Plus">+</button></div>
+      <div class="v7-hint" id="v7Hint">Haz clic en una capa para desplegarla</div>
+    </div>
+
+    <aside class="v7-inspector">
+      <div class="v7-inspector-head"><span>DETALLE</span><button type="button" id="v7Close" aria-label="Cerrar selección">×</button></div>
+      <div class="v7-accent" id="v7Accent"></div>
+      <h2 id="v7Selected">Universidad completa</h2>
+      <div class="v7-number"><strong id="v7SelectedValue">0</strong><span>registros de matrícula</span></div>
+      <div class="v7-share-row"><div><span>Participación</span><strong id="v7Share">100%</strong></div><div><span>Programas</span><strong id="v7Programs">0</strong></div></div>
+      <div class="v7-divider"></div>
+      <div class="v7-section-title">DESGLOSE DEL FOCO</div>
+      <div class="v7-detail-list" id="v7DetailList"></div>
+      <div class="v7-divider"></div>
+      <div class="v7-section-title">LECTURA</div>
+      <p class="v7-reading" id="v7Reading">Una vista general del conjunto de matrícula. Haz clic en una dimensión para explorarla.</p>
+      <div class="v7-back-note">La navegación tiene máximo 3 niveles y conserva el contexto de la selección.</div>
+    </aside>
+  </section>
+
+  <section class="v7-strip">
+    <div class="v7-strip-title"><span>LECTURA GLOBAL</span><strong id="v7StripTitle">Distribución de la matrícula</strong></div>
+    <div class="v7-bars" id="v7Bars"></div>
+  </section>
+</main>
+</div>
+</div>
+<script src="/assets/js/core.js"></script>
+<script src="/assets/js/pages/universidad360.js"></script>
+</body>
+</html>

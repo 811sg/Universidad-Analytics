@@ -1,0 +1,111 @@
+{
+  "resumen": {
+    "original": 29854,
+    "duplicados_eliminados": 840,
+    "unicos": 29014
+  },
+  "campos": [
+    {
+      "campo": "Ano",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 1
+    },
+    {
+      "campo": "Barrio",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 711
+    },
+    {
+      "campo": "Comuna",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 104
+    },
+    {
+      "campo": "Ciudad Nacimiento",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 654
+    },
+    {
+      "campo": "Pais Nacimiento",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 18
+    },
+    {
+      "campo": "Id Estrato",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 7
+    },
+    {
+      "campo": "Nombre Programa",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 72
+    },
+    {
+      "campo": "Sexo",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 3
+    },
+    {
+      "campo": "Tipo Inscripcion",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 3
+    },
+    {
+      "campo": "Sede",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 61
+    },
+    {
+      "campo": "Facultad",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 4
+    },
+    {
+      "campo": "Area Conocimiento",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 7
+    },
+    {
+      "campo": "Institucion",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 3598
+    },
+    {
+      "campo": "Colegio",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 2
+    },
+    {
+      "campo": "Modalidad",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 3
+    },
+    {
+      "campo": "Tipo Programa",
+      "registros": 29014,
+      "nulos": 0,
+      "unicos": 2
+    },
+    {
+      "campo": "Estrato",
+      "registros": 29014,
+      "nulos": 2,
+      "unicos": 6
+    }
+  ]
+}

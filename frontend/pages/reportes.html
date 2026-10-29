@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>Reportes</title>
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body data-page="reportes">
+<div class="app">
+<aside class="sidebar">
+  <a class="brand" href="/index.html"><span class="brand-mark">UA</span><span><span class="brand-title">Universidad Analytics</span><span class="brand-sub">Analítica institucional</span></span></a>
+  <div class="nav-section">Explorar</div>
+  <nav class="nav"><a href="/index.html" data-page-link="resumen"><span class="nav-icon" data-icon="grid"></span><span class="nav-label">Resumen</span></a>
+<a href="/pages/demografia.html" data-page-link="demografia"><span class="nav-icon" data-icon="users"></span><span class="nav-label">Demografía</span></a>
+<a href="/pages/academico.html" data-page-link="academico"><span class="nav-icon" data-icon="book"></span><span class="nav-label">Académico</span></a>
+<a href="/pages/geografia.html" data-page-link="geografia"><span class="nav-icon" data-icon="pin"></span><span class="nav-label">Geografía</span></a>
+<a href="/pages/colegios.html" data-page-link="colegios"><span class="nav-icon" data-icon="school"></span><span class="nav-label">Colegios</span></a>
+<a href="/pages/explorador.html" data-page-link="explorador"><span class="nav-icon" data-icon="table"></span><span class="nav-label">Explorador</span></a>
+<a href="/pages/universidad360.html" data-page-link="universidad360"><span class="nav-icon" data-icon="trend"></span><span class="nav-label">Universidad 360</span></a>
+<a href="/pages/gestion.html" data-page-link="gestion"><span class="nav-icon" data-icon="database"></span><span class="nav-label">Gestión de datos</span></a>
+<a href="/pages/reportes.html" data-page-link="reportes"><span class="nav-icon" data-icon="report"></span><span class="nav-label">Reportes</span></a></nav>
+  <div class="sidebar-bottom"><div class="status"><span class="status-dot"></span><span>Dataset local conectado</span></div></div>
+</aside>
+<div class="content">
+<header class="topbar">
+  <div class="top-left"><span class="breadcrumb">Analítica institucional / <strong id="pageName">Reportes</strong></span></div>
+  <div class="top-right">
+    <span id="filterCount" class="breadcrumb">0 registros</span>
+    <button class="icon-button" id="refreshBtn" title="Actualizar datos" aria-label="Actualizar datos" data-icon="refresh"></button>
+  </div>
+</header>
+<main class="main">
+<div class="page-head"><div><h1>Centro de reportes</h1><p>Convierte la selección actual en un informe claro para compartir, revisar o presentar. No es una captura del tablero.</p></div><div class="head-actions"><button class="button" data-export="print">Vista ejecutiva</button><button class="button primary" data-export="docx">Descargar informe Word</button></div></div>
+<div class="filterbar" id="filters"></div><div class="active-filters" id="activeFilters"></div><div class="kpis" id="kpis"></div>
+<div class="report-grid">
+<section class="card"><div class="card-head"><div><h2 class="card-title">Informe ejecutivo</h2><p class="card-desc">Resume volumen, concentración, modalidad, programas y sedes de la selección actual.</p></div></div><div class="insight-strip" id="insights"></div><div class="notice info" style="margin-top:14px">El informe se construye con los datos y filtros activos. Word y la vista ejecutiva quedan listos para compartir o imprimir.</div></section>
+<section class="card"><div class="card-head"><div><h2 class="card-title">Salidas disponibles</h2><p class="card-desc">Usa cada formato según el propósito del análisis.</p></div></div><div class="report-options"><button class="report-option" data-export="docx"><b>Informe Word</b><span>Documento editable con resumen, tablas y metodología.</span></button><button class="report-option" data-export="print"><b>Vista ejecutiva</b><span>Documento limpio preparado para imprimir o guardar como PDF.</span></button><button class="report-option" data-export="xlsx"><b>Excel filtrado</b><span>Datos de la selección actual para continuar el análisis.</span></button><button class="report-option" data-export="csv"><b>CSV</b><span>Datos planos para otros sistemas.</span></button></div></section>
+</div>
+<div class="grid-2" style="margin-top:14px"><section class="card"><div class="card-head"><div><h2 class="card-title">Qué se está analizando</h2><p class="card-desc">Lectura sencilla de las variables principales.</p></div></div><div class="report-list" id="reportTables"></div></section><section class="card"><div class="card-head"><div><h2 class="card-title">Calidad y trazabilidad</h2><p class="card-desc">Información del conjunto que alimenta el tablero.</p></div></div><div class="report-list" id="qualityList"></div></section></div>
+</main>
+</div>
+</div>
+
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="filterDrawer">
+  <div class="drawer-head"><h2>Filtros avanzados</h2><button class="icon-button" id="drawerClose" title="Cerrar" data-icon="close"></button></div>
+  <div class="filter-grid" id="drawerFilters"></div>
+  <div style="display:flex;gap:7px;margin-top:15px"><button class="button ghost" id="drawerClear">Limpiar avanzados</button><button class="button primary" id="drawerApply">Aplicar filtros</button></div>
+</aside>
+
+<input id="importFile" type="file" accept=".csv,.json,.xlsx" hidden>
+<div class="loading" id="loading"><div class="loader">
+  <div class="loader-title" id="loadingTitle">Conectando con el dataset</div>
+  <div class="loader-sub" id="loadingSub">Consultando el servidor local y preparando los indicadores.</div>
+  <div class="loader-line" id="loadingLine"><span></span></div>
+  <div id="loadingActions" style="display:none;gap:7px;margin-top:12px"><a class="button primary" href="http://localhost:8000">Reintentar</a><button class="button" onclick="location.reload()">Recargar</button></div>
+</div></div>
+<div id="toast" class="toast"></div>
+<script src="/assets/js/core.js"></script>
+<script src="/assets/js/pages/reportes.js"></script>
+</body>
+</html>

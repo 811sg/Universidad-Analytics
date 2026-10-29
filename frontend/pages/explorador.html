@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<title>Explorador de datos</title>
+<link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body data-page="explorador">
+<div class="app">
+<aside class="sidebar">
+  <a class="brand" href="/index.html"><span class="brand-mark">UA</span><span><span class="brand-title">Universidad Analytics</span><span class="brand-sub">Analítica institucional</span></span></a>
+  <div class="nav-section">Explorar</div>
+  <nav class="nav"><a href="/index.html" data-page-link="resumen"><span class="nav-icon" data-icon="grid"></span><span class="nav-label">Resumen</span></a>
+<a href="/pages/demografia.html" data-page-link="demografia"><span class="nav-icon" data-icon="users"></span><span class="nav-label">Demografía</span></a>
+<a href="/pages/academico.html" data-page-link="academico"><span class="nav-icon" data-icon="book"></span><span class="nav-label">Académico</span></a>
+<a href="/pages/geografia.html" data-page-link="geografia"><span class="nav-icon" data-icon="pin"></span><span class="nav-label">Geografía</span></a>
+<a href="/pages/colegios.html" data-page-link="colegios"><span class="nav-icon" data-icon="school"></span><span class="nav-label">Colegios</span></a>
+<a href="/pages/explorador.html" data-page-link="explorador"><span class="nav-icon" data-icon="table"></span><span class="nav-label">Explorador</span></a>
+<a href="/pages/universidad360.html" data-page-link="universidad360"><span class="nav-icon" data-icon="trend"></span><span class="nav-label">Universidad 360</span></a>
+<a href="/pages/gestion.html" data-page-link="gestion"><span class="nav-icon" data-icon="database"></span><span class="nav-label">Gestión de datos</span></a>
+<a href="/pages/reportes.html" data-page-link="reportes"><span class="nav-icon" data-icon="report"></span><span class="nav-label">Reportes</span></a></nav>
+  <div class="sidebar-bottom"><div class="status"><span class="status-dot"></span><span>Dataset local conectado</span></div></div>
+</aside>
+<div class="content">
+<header class="topbar">
+  <div class="top-left"><span class="breadcrumb">Analítica institucional / <strong id="pageName">Explorador de datos</strong></span></div>
+  <div class="top-right">
+    <span id="filterCount" class="breadcrumb">0 registros</span>
+    <button class="icon-button" id="refreshBtn" title="Actualizar datos" aria-label="Actualizar datos" data-icon="refresh"></button>
+  </div>
+</header>
+<main class="main">
+
+<div class="page-head"><div><h1>Explorador de datos</h1><p>Consulta el registro limpio, filtra y exporta la selección sin modificar el origen.</p></div><div class="head-actions"><button class="button" data-export="csv">CSV</button><button class="button" data-export="json">JSON</button><button class="button primary" data-export="xlsx">Excel</button></div></div>
+<div class="filterbar" id="filters"></div><div class="active-filters" id="activeFilters"></div><div class="kpis" id="kpis"></div>
+<section class="table-card">
+<div class="table-toolbar"><input class="search" id="tableSearch" placeholder="Buscar en la selección..."><select class="button" id="pageSize" style="height:32px"><option>25</option><option>50</option><option>100</option></select></div>
+<div class="table-wrap"><table id="dataTable"></table></div>
+<div class="pager"><span id="rowInfo">0 resultados</span><div class="pager-actions"><button class="button" id="prevPage">Anterior</button><button class="button" id="nextPage">Siguiente</button></div></div>
+</section>
+
+</main>
+</div>
+</div>
+
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<aside class="drawer" id="filterDrawer">
+  <div class="drawer-head"><h2>Filtros avanzados</h2><button class="icon-button" id="drawerClose" title="Cerrar" data-icon="close"></button></div>
+  <div class="filter-grid" id="drawerFilters"></div>
+  <div style="display:flex;gap:7px;margin-top:15px"><button class="button ghost" id="drawerClear">Limpiar avanzados</button><button class="button primary" id="drawerApply">Aplicar filtros</button></div>
+</aside>
+
+<input id="importFile" type="file" accept=".csv,.json,.xlsx" hidden>
+<div class="loading" id="loading"><div class="loader">
+  <div class="loader-title" id="loadingTitle">Conectando con el dataset</div>
+  <div class="loader-sub" id="loadingSub">Consultando el servidor local y preparando los indicadores.</div>
+  <div class="loader-line" id="loadingLine"><span></span></div>
+  <div id="loadingActions" style="display:none;gap:7px;margin-top:12px"><a class="button primary" href="http://localhost:8000">Reintentar</a><button class="button" onclick="location.reload()">Recargar</button></div>
+</div></div>
+<div id="toast" class="toast"></div>
+<script src="/assets/js/core.js"></script>
+<script src="/assets/js/pages/explorador.js"></script>
+</body>
+</html>

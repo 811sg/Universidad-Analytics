@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Acceso · Universidad Analytics</title>
+<link rel="stylesheet" href="/assets/css/styles.css">
+<style>
+body{min-height:100vh;display:grid;place-items:center;background:#0b1220}
+.login{width:min(920px,94vw);display:grid;grid-template-columns:1.15fr .85fr;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+.left{background:#111827;color:#fff;padding:44px;display:flex;flex-direction:column;justify-content:space-between;min-height:520px}
+.left h1{font-size:38px;line-height:1.05;letter-spacing:-.04em;margin:20px 0 12px}.left p{color:#aeb8c8;line-height:1.6;max-width:44ch}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{border-top:1px solid #334155;padding-top:12px}.stat b{display:block;font-size:20px}.stat span{font-size:9px;color:#7f8aa3;text-transform:uppercase}
+.right{padding:44px;display:flex;align-items:center}.form{width:100%;max-width:360px}.form h2{margin:0 0 5px;font-size:24px}.form p{margin:0 0 25px;color:#697586;font-size:11px}
+.field{margin-bottom:13px}.field label{display:block;font-size:10px;font-weight:800;color:#475569;text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px}.field input{width:100%;height:38px;border:1px solid #dfe5ec;border-radius:9px;padding:0 11px;outline:0}.field input:focus{border-color:#93b4f8;box-shadow:0 0 0 3px #eaf1ff}.login-btn{width:100%;height:40px;border:0;border-radius:9px;background:#2563eb;color:#fff;font-weight:800;margin-top:6px}.hint{margin-top:14px;padding:10px;background:#f8fafc;border:1px solid #dfe5ec;border-radius:9px;color:#697586;font-size:9.5px;line-height:1.5}
+@media(max-width:720px){.login{grid-template-columns:1fr}.left{min-height:320px;padding:28px}.left h1{font-size:30px}.right{padding:28px}.stats{display:none}}
+</style></head>
+<body>
+<div class="login">
+<section class="left"><div><div class="brand" style="padding:0;color:#fff"><span class="brand-mark">UA</span><span><span class="brand-title">Universidad Analytics</span><span class="brand-sub">Analítica institucional</span></span></div>
+<div style="font-size:10px;color:#64748b;text-transform:uppercase;letter-spacing:.12em;margin-top:55px">Periodo de referencia · 2026-1</div>
+<h1>La matrícula, convertida en decisiones visibles.</h1><p>Explora composición, concentración, procedencia y demanda académica desde una sola interfaz.</p></div>
+<div class="stats"><div class="stat"><b>29.014</b><span>Registros limpios</span></div><div class="stat"><b>72</b><span>Programas</span></div><div class="stat"><b>61</b><span>Sedes</span></div></div></section>
+<section class="right"><form class="form" id="loginForm"><h2>Acceso institucional</h2><p>Demo local. El backend de autenticación puede conectarse en la siguiente fase.</p>
+<div class="field"><label>Usuario</label><input id="user" placeholder="usuario institucional" autocomplete="username"></div>
+<div class="field"><label>Contraseña</label><input id="pass" type="password" placeholder="contraseña"></div>
+<button class="login-btn">Entrar al tablero</button><div class="hint">Para la demo local usa <strong>admin</strong> / <strong>admin123</strong>. Este acceso es únicamente de demostración.</div>
+</form></section>
+</div>
+<script>
+document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();if(user.value.trim()==='admin'&&pass.value==='admin123')location.href='/index.html';else alert('Usuario o contraseña incorrectos.')});
+</script></body></html>

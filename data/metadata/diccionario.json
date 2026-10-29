@@ -1,0 +1,105 @@
+{
+  "fuente": "Matriculados_20260731.xlsx",
+  "hoja": "Data",
+  "registros_originales": 29854,
+  "duplicados_exactos_eliminados": 840,
+  "registros_unicos": 29014,
+  "columnas_eliminadas": [
+    "Consecutivo",
+    "Ciudad Nacimiento 1"
+  ],
+  "normalizaciones": {
+    "Barrio": "** Seleccionar** → No registrado",
+    "Comuna": "** Desconocida ** → No registrado",
+    "Institucion": "** Desconocido ** → No registrado",
+    "Sexo": "No registra → No registrado",
+    "Id Estrato": "0 → No registrado"
+  },
+  "campos": [
+    {
+      "campo": "Ano",
+      "descripcion": "Año de matrícula",
+      "tipo": "entero"
+    },
+    {
+      "campo": "Barrio",
+      "descripcion": "Barrio de procedencia",
+      "tipo": "texto"
+    },
+    {
+      "campo": "Comuna",
+      "descripcion": "Comuna de procedencia",
+      "tipo": "texto"
+    },
+    {
+      "campo": "Ciudad Nacimiento",
+      "descripcion": "Ciudad de nacimiento",
+      "tipo": "texto"
+    },
+    {
+      "campo": "Pais Nacimiento",
+      "descripcion": "País de nacimiento",
+      "tipo": "texto"
+    },
+    {
+      "campo": "Id Estrato",
+      "descripcion": "Estrato socioeconómico",
+      "tipo": "entero"
+    },
+    {
+      "campo": "Estrato",
+      "descripcion": "Estrato socioeconómico, con 0 tratado como no registrado",
+      "tipo": "entero/null"
+    },
+    {
+      "campo": "Nombre Programa",
+      "descripcion": "Programa académico",
+      "tipo": "texto"
+    },
+    {
+      "campo": "Sexo",
+      "descripcion": "Sexo registrado",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Tipo Inscripcion",
+      "descripcion": "Tipo de inscripción",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Sede",
+      "descripcion": "Sede de matrícula",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Facultad",
+      "descripcion": "Facultad",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Area Conocimiento",
+      "descripcion": "Área de conocimiento",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Institucion",
+      "descripcion": "Institución educativa de origen",
+      "tipo": "texto"
+    },
+    {
+      "campo": "Colegio",
+      "descripcion": "Sector del colegio de origen",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Modalidad",
+      "descripcion": "Modalidad de estudio",
+      "tipo": "categoría"
+    },
+    {
+      "campo": "Tipo Programa",
+      "descripcion": "Nivel del programa",
+      "tipo": "categoría"
+    }
+  ]
+}
